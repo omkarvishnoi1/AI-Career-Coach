@@ -49,6 +49,10 @@ export async function getIndustryInsights() {
 
   if (!user) throw new Error("User not found");
 
+  if (!user.industry || user.industry.trim() === "") {
+    throw new Error("Industry information is missing for this user. Please complete onboarding.");
+  }
+
   // If no insights exist, generate them
   if (!user.industryInsight) {
     const insights = await generateAIInsights(user.industry);
