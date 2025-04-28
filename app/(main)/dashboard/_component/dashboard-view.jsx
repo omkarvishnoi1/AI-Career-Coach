@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import {
   BarChart,
@@ -16,6 +17,7 @@ import {
   TrendingDown,
   Brain,
 } from "lucide-react";
+import { format, formatDistanceToNow } from "date-fns";
 import {
   Card,
   CardContent,
@@ -23,11 +25,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { format, formatDistanceToNow } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 
 const DashboardView = ({ insights }) => {
+  // Transform salary data for the chart
   const salaryData = insights.salaryRanges.map((range) => ({
     name: range.role,
     min: range.min / 1000,
@@ -77,6 +79,7 @@ const DashboardView = ({ insights }) => {
         <Badge variant="outline">Last updated: {lastUpdatedDate}</Badge>
       </div>
 
+      {/* Market Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -141,7 +144,6 @@ const DashboardView = ({ insights }) => {
       </div>
 
       {/* Salary Ranges Chart */}
-
       <Card className="col-span-4">
         <CardHeader>
           <CardTitle>Salary Ranges by Role</CardTitle>
@@ -154,12 +156,7 @@ const DashboardView = ({ insights }) => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={salaryData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="name"
-                  interval={0}
-                  textAnchor="end"
-                  style={{ fontSize: "10px" , textAnchor: 'middle' }}
-                />
+                <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip
                   content={({ active, payload, label }) => {
@@ -179,11 +176,7 @@ const DashboardView = ({ insights }) => {
                   }}
                 />
                 <Bar dataKey="min" fill="#94a3b8" name="Min Salary (K)" />
-                <Bar
-                  dataKey="median"
-                  fill="#64748b"
-                  name="Median  Salary (K)"
-                />
+                <Bar dataKey="median" fill="#64748b" name="Median Salary (K)" />
                 <Bar dataKey="max" fill="#475569" name="Max Salary (K)" />
               </BarChart>
             </ResponsiveContainer>

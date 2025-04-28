@@ -30,7 +30,6 @@ import useFetch from "@/hooks/use-fetch";
 import { onboardingSchema } from "@/app/lib/schema";
 import { updateUser } from "@/actions/user";
 
-
 const OnboardingForm = ({ industries }) => {
   const router = useRouter();
   const [selectedIndustry, setSelectedIndustry] = useState(null);
@@ -51,29 +50,28 @@ const OnboardingForm = ({ industries }) => {
     resolver: zodResolver(onboardingSchema),
   });
 
+  const onSubmit = async (values) => {
+    try {
+      const formattedIndustry = `${values.industry}-${values.subIndustry
+        .toLowerCase()
+        .replace(/ /g, "-")}`;
 
-const onSubmit=async(values)=>{
-  try {
-    const formattedIndustry = `${values.industry}-${values.subIndustry
-      .toLowerCase()
-      .replace(/ /g, "-")}`;
+      await updateUserFn({
+        ...values,
+        industry: formattedIndustry,
+      });
+    } catch (error) {
+      console.error("Onboarding error:", error);
+    }
+  };
 
-    await updateUserFn({
-      ...values,
-      industry: formattedIndustry,
-    });
-  } catch (error) {
-    console.error("Onboarding error:", error);
-  }
-}
-
-useEffect(() => {
-  if (updateResult?.success && !updateLoading) {
-    toast.success("Profile completed successfully!");
-    router.push("/dashboard");
-    router.refresh();
-  }
-}, [updateResult, updateLoading]);
+  useEffect(() => {
+    if (updateResult?.success && !updateLoading) {
+      toast.success("Profile completed successfully!");
+      router.push("/dashboard");
+      router.refresh();
+    }
+  }, [updateResult, updateLoading]);
 
   const watchIndustry = watch("industry");
 
@@ -103,19 +101,19 @@ useEffect(() => {
                 }}
               >
                 <SelectTrigger id="industry">
-                  <SelectValue placeholder="Select an Industry" />
+                  <SelectValue placeholder="Select an industry" />
                 </SelectTrigger>
                 <SelectContent>
-                  {industries.map((ind) => {
-                    return (
-                      <SelectItem value={ind.id} key={ind.id}>
+                  <SelectGroup>
+                    <SelectLabel>Industries</SelectLabel>
+                    {industries.map((ind) => (
+                      <SelectItem key={ind.id} value={ind.id}>
                         {ind.name}
                       </SelectItem>
-                    );
-                  })}
+                    ))}
+                  </SelectGroup>
                 </SelectContent>
               </Select>
-
               {errors.industry && (
                 <p className="text-sm text-red-500">
                   {errors.industry.message}
@@ -206,7 +204,6 @@ useEffect(() => {
                 "Complete Profile"
               )}
             </Button>
-
           </form>
         </CardContent>
       </Card>
