@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { dark } from "@clerk/themes";
+import { light } from "@clerk/themes";
 import Header from "@/components/header";
 import {
   ClerkProvider,
@@ -10,9 +10,9 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-} from '@clerk/nextjs'
+} from "@clerk/nextjs";
 import { Toaster } from "sonner";
-
+import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,34 +25,64 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider
       appearance={{
-        baseTheme: dark,
+        baseTheme: light,
       }}
     >
-    <html lang="en" suppressHydrationWarning>
-    
-    <body className={`${inter.className}`}>
-   
-        <ThemeProvider
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.className}`}>
+          <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
             {/*header*/}
-            <Header/>
+            <Header />
             <main className="min-h-screen">{children}</main>
             <Toaster richColors />
             {/*footer*/}
-            <footer className="bg-muted/50 py-12">
-              <div className="container mx-auto px-4 text-center text-gray-200">
-                <p>
-                Made with 💗
-                </p>
+            <footer className="bg-white border-t py-12">
+              <div className="container mx-auto px-4 text-center text-gray-800">
+                <p className="mb-4 text-lg font-semibold">Connect with us</p>
+                <div className="flex justify-center space-x-6">
+                  <a
+                    href="https://www.instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="w-6 h-6 hover:text-pink-500 transition-colors" />
+                  </a>
+                  <a
+                    href="https://www.facebook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                  >
+                    <Facebook className="w-6 h-6 hover:text-blue-600 transition-colors" />
+                  </a>
+                  <a
+                    href="https://www.twitter.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Twitter"
+                  >
+                    <Twitter className="w-6 h-6 hover:text-sky-500 transition-colors" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin className="w-6 h-6 hover:text-blue-700 transition-colors" />
+                  </a>
+                </div>
               </div>
             </footer>
           </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { getCoverLetter } from "@/actions/cover-letter";
 import CoverLetterPreview from "../_components/cover-letter-preview";
 
+// params is used to acces this page with a dynamic route
+// e.g. /ai-cover-letter/12345
 export default async function EditCoverLetterPage({ params }) {
   const { id } = await params;
   const coverLetter = await getCoverLetter(id);
@@ -18,7 +20,7 @@ export default async function EditCoverLetterPage({ params }) {
           </Button>
         </Link>
 
-        <h1 className="text-6xl font-bold gradient-title mb-6">
+        <h1 className="text-6xl font-bold text-gray-900 mb-6">
           {coverLetter?.jobTitle} at {coverLetter?.companyName}
         </h1>
       </div>

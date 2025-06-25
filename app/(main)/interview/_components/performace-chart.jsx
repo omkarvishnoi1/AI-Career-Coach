@@ -35,7 +35,7 @@ export default function PerformanceChart({ assessments }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="gradient-title text-3xl md:text-4xl">
+        <CardTitle className="text-4xl font-bold text-gray-900">
           Performance Trend
         </CardTitle>
         <CardDescription>Your quiz scores over time</CardDescription>

@@ -79,7 +79,7 @@ const OnboardingForm = ({ industries }) => {
     <div className="flex items-center justify-center bg-background">
       <Card className="w-full max-w-lg mt-10 mx-2">
         <CardHeader>
-          <CardTitle className="gradient-title text-4xl">
+          <CardTitle className="text-4xl font-bold text-gray-900">
             Complete Your Profile
           </CardTitle>
           <CardDescription>
@@ -170,7 +170,7 @@ const OnboardingForm = ({ industries }) => {
               <Label htmlFor="skills">Skills</Label>
               <Input
                 id="skills"
-                placeholder="e.g., Python, JavaScript, Project Management"
+                placeholder="Enter your skills"
                 {...register("skills")}
               />
               <p className="text-sm text-muted-foreground">

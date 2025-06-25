@@ -23,16 +23,13 @@ export default async function Header() {
   await checkUser();
 
   return (
-    <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 w-full border-b border-gray-200 bg-white/90 backdrop-blur-md z-50 shadow-sm supports-[backdrop-filter]:bg-white/70">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/">
-          <Image
-            src={"/logo.png"}
-            alt="Sensai Logo"
-            width={200}
-            height={60}
-            className="h-12 py-1 w-auto object-contain"
-          />
+        <Link
+          href="/"
+          className="text-4xl font-extrabold tracking-tight text-gray-900"
+        >
+          <span className="text-blue-600">Sen</span>sai
         </Link>
 
         {/* Action Buttons */}
@@ -54,7 +51,7 @@ export default async function Header() {
             {/* Growth Tools Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="flex items-center gap-2">
+                <Button className="flex items-center gap-2" variant="outline">
                   <StarsIcon className="h-4 w-4" />
                   <span className="hidden md:block">Growth Tools</span>
                   <ChevronDown className="h-4 w-4" />

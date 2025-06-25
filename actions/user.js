@@ -23,6 +23,13 @@ export async function updateUser(data) {
   }
 
   try {
+    // we perform 3 operations here:
+    // 1.find if the industry insight already exists
+    // 2.if insight does not exist, create it with default values- we will replace these with AI generated insights
+    // update the user with the new data
+
+    // we use a transaction to ensure that all operations are atomic
+    // if any operation fails, the transaction will roll back
     const result = await db.$transaction(
       async (tx) => {
         let industryInsight = await tx.industryInsight.findUnique({
@@ -58,6 +65,7 @@ export async function updateUser(data) {
         return { updatedUser, industryInsight };
       },
       {
+        // we provide a timeout of 10 sec to ensure that the transaction does not hang indefinitely
         timeout: 10000,
       }
     );

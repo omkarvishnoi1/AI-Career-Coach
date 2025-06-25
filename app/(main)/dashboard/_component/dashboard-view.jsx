@@ -156,7 +156,24 @@ const DashboardView = ({ insights }) => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={salaryData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis
+                  dataKey="name"
+                  interval={0}
+                  tick={({ x, y, payload }) => {
+                    const words = payload.value.split(" ");
+                    return (
+                      <g transform={`translate(${x},${y + 10})`}>
+                        <text textAnchor="middle" fill="#374151" fontSize={12}>
+                          {words.map((word, index) => (
+                            <tspan key={index} x={0} dy={index === 0 ? 0 : 14}>
+                              {word}
+                            </tspan>
+                          ))}
+                        </text>
+                      </g>
+                    );
+                  }}
+                />
                 <YAxis />
                 <Tooltip
                   content={({ active, payload, label }) => {
@@ -175,9 +192,16 @@ const DashboardView = ({ insights }) => {
                     return null;
                   }}
                 />
-                <Bar dataKey="min" fill="#94a3b8" name="Min Salary (K)" />
-                <Bar dataKey="median" fill="#64748b" name="Median Salary (K)" />
-                <Bar dataKey="max" fill="#475569" name="Max Salary (K)" />
+                <Bar dataKey="min" fill="#d1d5db" name="Min Salary (K)" />{" "}
+                {/* Light Gray */}
+                <Bar
+                  dataKey="median"
+                  fill="#6b7280"
+                  name="Median Salary (K)"
+                />{" "}
+                {/* Medium Gray */}
+                <Bar dataKey="max" fill="#111827" name="Max Salary (K)" />{" "}
+                {/* Near Black */}
               </BarChart>
             </ResponsiveContainer>
           </div>

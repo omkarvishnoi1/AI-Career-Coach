@@ -58,7 +58,7 @@ export default function CoverLetterList({ coverLetters }) {
           <CardHeader>
             <div className="flex items-start justify-between">
               <div>
-                <CardTitle className="text-xl gradient-title">
+                <CardTitle className="text-xl text-gray-900">
                   {letter.jobTitle} at {letter.companyName}
                 </CardTitle>
                 <CardDescription>
