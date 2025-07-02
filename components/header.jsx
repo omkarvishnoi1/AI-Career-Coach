@@ -29,7 +29,7 @@ export default async function Header() {
           href="/"
           className="text-4xl font-extrabold tracking-tight text-gray-900"
         >
-          <span className="text-blue-600">Sen</span>sai
+          <span className="text-blue-600">Prep</span>Forge
         </Link>
 
         {/* Action Buttons */}
